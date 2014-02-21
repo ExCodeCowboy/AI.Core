@@ -10,7 +10,7 @@ namespace AI.Core.BeeColonySim
 {
     public class GenericHive<TSoltuionType> {
 
-        static Random random = null;
+        public static Random random = new Random();
 
         private readonly int _totalNumberBees;
         private readonly int _numberInactive;
@@ -51,8 +51,7 @@ namespace AI.Core.BeeColonySim
                     int maxNumberCycles,
                     Func<TSoltuionType> randomSolutionGenerator,
                     Func<TSoltuionType,TSoltuionType> neighborSolutionGenerator,
-                    Func<TSoltuionType,Double> measureOfQuality,
-                    Random randomI)
+                    Func<TSoltuionType,Double> measureOfQuality)
         {
             _totalNumberBees = totalNumberBees;
             _numberInactive = numberInactive;
@@ -62,8 +61,6 @@ namespace AI.Core.BeeColonySim
             _neighborSolutionGenerator = neighborSolutionGenerator;
             _measureOfQuality = measureOfQuality;
 
-            random = randomI;
- 
             Bees = new GenericBee<TSoltuionType>[totalNumberBees];
             BestSolution = randomSolutionGenerator();
             BestMeasureOfQuality = 
