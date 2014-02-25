@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleFormula\SimpleFormulaTest.cs" />
     <Compile Include="TravelingSalesman\ProblemDefinition\CitiesData.cs" />
     <Compile Include="TravelingSalesman\ProblemDefinition\CitiesProblemDef.cs" />
     <Compile Include="TravelingSalesman\TSPTest.cs" />

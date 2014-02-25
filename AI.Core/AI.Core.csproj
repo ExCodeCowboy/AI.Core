@@ -43,6 +43,8 @@
     <Compile Include="BeeColonySim\GenericBee.cs" />
     <Compile Include="BeeColonySim\BeeStatus.cs" />
     <Compile Include="BeeColonySim\GenericHive.cs" />
+    <Compile Include="ParticleSwarm\Particle.cs" />
+    <Compile Include="ParticleSwarm\Swarm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
