@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AI.Core.BeeColonySim
+﻿namespace AI.Core.Solvers.BeeColonySim
 {
     public class GenericBee<TSolutiontype>
     {

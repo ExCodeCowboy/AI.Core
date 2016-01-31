@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AI.Core.ParticleSwarm;
+using AI.Core.Solvers.ParticleSwarm;
 using NUnit.Framework;
 
 namespace TestProblems.SimpleFormula

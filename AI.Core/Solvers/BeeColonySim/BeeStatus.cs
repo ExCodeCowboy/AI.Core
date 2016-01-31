@@ -1,4 +1,4 @@
-﻿namespace AI.Core.BeeColonySim
+﻿namespace AI.Core.Solvers.BeeColonySim
 {
     public enum BeeStatus
     {

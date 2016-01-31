@@ -40,12 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BeeColonySim\GenericBee.cs" />
-    <Compile Include="BeeColonySim\BeeStatus.cs" />
-    <Compile Include="BeeColonySim\GenericHive.cs" />
-    <Compile Include="ParticleSwarm\Particle.cs" />
-    <Compile Include="ParticleSwarm\Swarm.cs" />
+    <Compile Include="Solvers\BeeColonySim\GenericBee.cs" />
+    <Compile Include="Solvers\BeeColonySim\BeeStatus.cs" />
+    <Compile Include="Solvers\BeeColonySim\GenericHive.cs" />
+    <Compile Include="Solvers\ParticleSwarm\Particle.cs" />
+    <Compile Include="Solvers\ParticleSwarm\Swarm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solvers\SimulatedAnnealing\Annealer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

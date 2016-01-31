@@ -34,7 +34,7 @@ namespace TestProblems.TravelingSalesman
 
             int ranIndex = _random.Next(0, result.Length);
             int adjIndex = ranIndex==result.Length-1?0:ranIndex+1;
-           
+
             char tmp = result[ranIndex];
             result[ranIndex] = result[adjIndex];
             result[adjIndex] = tmp;

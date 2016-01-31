@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AI.Core.BeeColonySim
+namespace AI.Core.Solvers.BeeColonySim
 {
-    public class GenericHive<TSoltuionType> {
+    public class GenericHive<TSolutionType> {
 
         public static Random random = new Random();
 
@@ -16,15 +11,15 @@ namespace AI.Core.BeeColonySim
         private readonly int _numberInactive;
         private readonly int _maxNumberVisits;
         private readonly int _maxNumberCycles;
-        private readonly Func<TSoltuionType> _randomSolutionGenerator;
-        private readonly Func<TSoltuionType,TSoltuionType> _neighborSolutionGenerator;
-        private readonly Func<TSoltuionType, double> _measureOfQuality;
+        private readonly Func<TSolutionType> _randomSolutionGenerator;
+        private readonly Func<TSolutionType,TSolutionType> _neighborSolutionGenerator;
+        private readonly Func<TSolutionType, double> _measureOfQuality;
 
         public double ProbPersuasion = 0.90;
         public double ProbMistake = 0.01;
 
-        public GenericBee<TSoltuionType>[] Bees;
-        public TSoltuionType BestSolution;
+        public GenericBee<TSolutionType>[] Bees;
+        public TSolutionType BestSolution;
         public double BestMeasureOfQuality;
         public int[] IndexesOfInactiveBees;
 
@@ -49,9 +44,9 @@ namespace AI.Core.BeeColonySim
                     int numberScout, 
                     int maxNumberVisits,
                     int maxNumberCycles,
-                    Func<TSoltuionType> randomSolutionGenerator,
-                    Func<TSoltuionType,TSoltuionType> neighborSolutionGenerator,
-                    Func<TSoltuionType,Double> measureOfQuality)
+                    Func<TSolutionType> randomSolutionGenerator,
+                    Func<TSolutionType,TSolutionType> neighborSolutionGenerator,
+                    Func<TSolutionType,Double> measureOfQuality)
         {
             _totalNumberBees = totalNumberBees;
             _numberInactive = numberInactive;
@@ -61,7 +56,7 @@ namespace AI.Core.BeeColonySim
             _neighborSolutionGenerator = neighborSolutionGenerator;
             _measureOfQuality = measureOfQuality;
 
-            Bees = new GenericBee<TSoltuionType>[totalNumberBees];
+            Bees = new GenericBee<TSolutionType>[totalNumberBees];
             BestSolution = randomSolutionGenerator();
             BestMeasureOfQuality = 
             measureOfQuality(BestSolution);
@@ -81,11 +76,11 @@ namespace AI.Core.BeeColonySim
                 else
                     currStatus = BeeStatus.Active; // active
 
-                TSoltuionType randomMemoryMatrix = randomSolutionGenerator();
+                TSolutionType randomMemoryMatrix = randomSolutionGenerator();
                 double mq = _measureOfQuality(randomMemoryMatrix);
                 int numberOfVisits = 0;
 
-                var newBee = new GenericBee<TSoltuionType>(currStatus,
+                var newBee = new GenericBee<TSolutionType>(currStatus,
                     randomMemoryMatrix, mq, numberOfVisits);
 
                 if (newBee.MeasureOfQuality < BestMeasureOfQuality)
@@ -131,7 +126,7 @@ namespace AI.Core.BeeColonySim
         {
             var activeBee = Bees[i];
 
-            TSoltuionType neighbor = _neighborSolutionGenerator(activeBee.CurrentSolution);
+            TSolutionType neighbor = _neighborSolutionGenerator(activeBee.CurrentSolution);
             double neighborQuality = _measureOfQuality(neighbor); 
             double prob = random.NextDouble();
             bool memoryWasUpdated = false;
@@ -187,7 +182,7 @@ namespace AI.Core.BeeColonySim
         private void ProcessScoutBee(int i)
         {
             var scoutBee = Bees[i];
-            TSoltuionType randomFoodSource = _randomSolutionGenerator();
+            TSolutionType randomFoodSource = _randomSolutionGenerator();
             double randomFoodSourceQuality = 
                 _measureOfQuality(randomFoodSource);
             if (randomFoodSourceQuality < scoutBee.MeasureOfQuality)

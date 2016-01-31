@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using AI.Core.BeeColonySim;
+using AI.Core.Solvers.BeeColonySim;
+using AI.Core.Solvers.SimulatedAnnealing;
 using NUnit.Framework;
 
 namespace TestProblems.TravelingSalesman
@@ -16,7 +17,7 @@ namespace TestProblems.TravelingSalesman
     {
         
         [Test]
-        public void TestGeneric()
+        public void TestGenericHive()
         {
             Debug.WriteLine("Loading cities data for SBC Traveling Salesman Problem analysis");
             CitiesData citiesData = new CitiesData(20);
@@ -62,11 +63,46 @@ namespace TestProblems.TravelingSalesman
 
             Assert.AreEqual(citiesData.cities,hive.BestSolution);
         }
-        
+
+        [Test]
+        public void TestGenericAnnealer()
+        {
+            Debug.WriteLine("Loading cities data for SBC Traveling Salesman Problem analysis");
+            CitiesData citiesData = new CitiesData(10);
+            Debug.WriteLine(citiesData.ToString());
+            Debug.WriteLine("Number of cities = " + citiesData.cities.Length);
+            Debug.WriteLine("Number of possible paths = " +
+              citiesData.NumberOfPossiblePaths().ToString("#,###"));
+            Debug.WriteLine("Best possible solution (shortest path) length = " +
+              citiesData.ShortestPathLength().ToString("F4"));
+
+
+            var problemDef = new CitiesProblemDef(citiesData);
+
+            Annealer<Char[]>.random = new Random(0);
+            CitiesProblemDef._random = Annealer<Char[]>.random;
+
+            var hive = new Annealer<Char[]>(problemDef.GenerateRandomMemoryMatrix,
+                                 problemDef.GenerateNeighborMemoryMatrix,
+                                 problemDef.MeasureOfQuality,
+                                 1000000,0.999);
+
+            Debug.WriteLine("\nInitial annealer");
+            
+            Char[] bestSolution = hive.Solve();
+
+            Debug.WriteLine("\nFinal Solution");
+            Debug.WriteLine(new string(bestSolution));
+            Debug.WriteLine(hive);
+            Debug.WriteLine("End annealer demo");
+
+            Assert.AreEqual(citiesData.cities, bestSolution);
+        }
+
         [Test]
         public void TextTestGeneric()
         {
-            var targetString = "THISISATESTSTRINGTHATISFAIRLYLONGTHISISATESTSTRINGTHATISFAIRLYLONG";
+            var targetString = "THISISATESTSTRINGTHATISFAIRLYLONGTHISISATESTSTRING";
             
             Func<string> genRandom = () => RandomString(targetString.Length);
             Func<string, string> genNeighboor = (s) =>

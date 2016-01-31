@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AI.Core.ParticleSwarm
+namespace AI.Core.Solvers.ParticleSwarm
 {
     public class Swarm
     {
@@ -24,10 +18,8 @@ namespace AI.Core.ParticleSwarm
         {
             get { return _bestGlobalFitness; }
         }
-
-
+        
         // Initialize all Particle objects
-
         private double w = 0.729; // inertia weight
         private double c1 = 1.49445; // cognitive weight
         private double c2 = 1.49445; // social weight
@@ -89,16 +81,12 @@ namespace AI.Core.ParticleSwarm
                     _bestGlobalPosition = _swarm[i].position;
                 }
             }
-
-
         }
 
         public double[] Solve()
         {
             for (int n = 0; n < NumberIterations; n++)
             {
-
-
                 for (int i = 0; i < _swarm.Length; ++i)
                 {
                     Particle currP = _swarm[i];
